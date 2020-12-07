@@ -43,7 +43,7 @@ async function logEvents(event: any) {
       "🌟 %s %s %s ",
       lfmt.user(login),
       lfmt.event("starred"),
-      lfmt.repo(repo)
+      lfmt.repo(repo),
     );
   } else if (event.type == "ReleaseEvent") {
     const tag = event.payload.release.tag_name;
@@ -52,7 +52,7 @@ async function logEvents(event: any) {
       lfmt.user(login),
       lfmt.event("released"),
       lfmt.target(tag),
-      lfmt.repo(repo)
+      lfmt.repo(repo),
     );
   } else if (event.type == "IssuesEvent") {
     const action = event.payload.action;
@@ -65,7 +65,7 @@ async function logEvents(event: any) {
         lfmt.event("closed"),
         lfmt.ntarget(issue.number),
         lfmt.repo(repo),
-        lfmt.body(issue.title)
+        lfmt.body(issue.title),
       );
     } else if (action == "opened") {
       logf = sprintf(
@@ -74,7 +74,7 @@ async function logEvents(event: any) {
         lfmt.event("opened"),
         lfmt.ntarget(issue.number),
         lfmt.repo(repo),
-        lfmt.body(issue.title)
+        lfmt.body(issue.title),
       );
     } else if (action == "reopened") {
       logf = sprintf(
@@ -83,14 +83,14 @@ async function logEvents(event: any) {
         lfmt.event("reopened"),
         lfmt.ntarget(issue.number),
         lfmt.repo(repo),
-        lfmt.body(issue.title)
+        lfmt.body(issue.title),
       );
     } else {
       console.log(
         "#### uncaught event ####",
         event.type,
         action,
-        "Please report this :)"
+        "Please report this :)",
       );
     }
   } else if (event.type == "IssueCommentEvent") {
@@ -101,7 +101,7 @@ async function logEvents(event: any) {
       lfmt.event("commented"),
       lfmt.ntarget(issue.number),
       lfmt.repo(repo),
-      lfmt.body(issue.title)
+      lfmt.body(issue.title),
     );
   } else if (event.type == "PullRequestEvent") {
     const action = event.payload.action;
@@ -115,7 +115,7 @@ async function logEvents(event: any) {
           lfmt.event("merged"),
           lfmt.ntarget(pull.number),
           lfmt.repo(repo),
-          lfmt.body(pull.title)
+          lfmt.body(pull.title),
         );
       } else {
         logf = sprintf(
@@ -124,7 +124,7 @@ async function logEvents(event: any) {
           lfmt.event("regected"),
           lfmt.ntarget(pull.number),
           lfmt.repo(repo),
-          lfmt.body(pull.title)
+          lfmt.body(pull.title),
         );
       }
     } else if (action == "opened") {
@@ -134,7 +134,7 @@ async function logEvents(event: any) {
         lfmt.event("opened"),
         lfmt.ntarget(pull.number),
         lfmt.repo(repo),
-        lfmt.body(pull.title)
+        lfmt.body(pull.title),
       );
     } else if (action == "reopened") {
       logf = sprintf(
@@ -143,14 +143,14 @@ async function logEvents(event: any) {
         lfmt.event("reopened"),
         lfmt.ntarget(pull.number),
         lfmt.repo(repo),
-        lfmt.body(pull.title)
+        lfmt.body(pull.title),
       );
     } else {
       console.log(
         "#### uncaught event ####",
         event.type,
         action,
-        "Please report this :)"
+        "Please report this :)",
       );
     }
   } else if (event.type == "PullRequestReviewEvent") {
@@ -163,7 +163,7 @@ async function logEvents(event: any) {
         lfmt.event("approved"),
         lfmt.ntarget(pull.number),
         lfmt.repo(repo),
-        lfmt.body(pull.title)
+        lfmt.body(pull.title),
       );
     } else if (review.state == "commented") {
       logf = sprintf(
@@ -172,7 +172,7 @@ async function logEvents(event: any) {
         lfmt.event("reviewed"),
         lfmt.ntarget(pull.number),
         lfmt.repo(repo),
-        lfmt.body(pull.title)
+        lfmt.body(pull.title),
       );
     } else if (review.state == "dismissed") {
       logf = sprintf(
@@ -181,7 +181,7 @@ async function logEvents(event: any) {
         lfmt.event("dismissed reviews"),
         lfmt.ntarget(pull.number),
         lfmt.repo(repo),
-        lfmt.body(pull.title)
+        lfmt.body(pull.title),
       );
     } else if (review.state == "changes_requested") {
       logf = sprintf(
@@ -190,14 +190,14 @@ async function logEvents(event: any) {
         lfmt.event("requested changes"),
         lfmt.ntarget(pull.number),
         lfmt.repo(repo),
-        lfmt.body(pull.title)
+        lfmt.body(pull.title),
       );
     } else {
       console.log(
         "#### uncaught event ####",
         event.type,
         review.state,
-        "Please report this :)"
+        "Please report this :)",
       );
     }
   } else if (event.type == "PullRequestReviewCommentEvent") {
@@ -210,7 +210,7 @@ async function logEvents(event: any) {
       lfmt.event("replied to a review"),
       lfmt.ntarget(pull.number),
       lfmt.repo(repo),
-      lfmt.body(comment.body)
+      lfmt.body(comment.body),
     );
   } else if (event.type == "MemberEvent") {
     const action = event.payload.action;
@@ -221,7 +221,7 @@ async function logEvents(event: any) {
         "👋 %s %s a new member %s",
         lfmt.user(login),
         lfmt.event("added"),
-        lfmt.target(member.login)
+        lfmt.target(member.login),
       );
     } else if (action == "edited") {
       const changes = event.payload.changes;
@@ -230,14 +230,14 @@ async function logEvents(event: any) {
         lfmt.user(login),
         lfmt.event("updated permissions"),
         lfmt.target(member.login),
-        lfmt.body(changes)
+        lfmt.body(changes),
       );
     } else {
       console.log(
         "#### uncaught event ####",
         event.type,
         action,
-        "Please report this :)"
+        "Please report this :)",
       );
     }
   } else {
@@ -245,16 +245,17 @@ async function logEvents(event: any) {
       "❓ %s %s %s",
       lfmt.user(event.actor.login),
       lfmt.event(event.type),
-      lfmt.repo(event.repo.name)
+      lfmt.repo(event.repo.name),
     );
   }
 
-  if (!logf)
+  if (!logf) {
     console.log(
       "#### uncaught event ####",
       event.type,
-      "Please report this :)"
+      "Please report this :)",
     );
+  }
   console.log(logf);
 }
 
